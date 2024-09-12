@@ -21,7 +21,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
   #
   kafka-2:
     image: confluentinc/cp-kafka
@@ -36,7 +36,7 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
 
   kafka-3:
     image: confluentinc/cp-kafka
@@ -51,62 +51,62 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9094
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
 #   microservice
-  user_services:
-     build:
-       context: user_services
-       dockerfile: Dockerfile
-     image: user_services
-     ports:
-       - 8080:8080
-     restart: on-failure
-     env_file:
-       - local.env
-
-  post_services:
-    build:
-      context: post_services
-      dockerfile: Dockerfile
-    image: post_services
-    ports:
-      - 8088:8088
-    restart: on-failure
-    env_file:
-      - local.env
-
-  category_services:
-    build:
-      context: category_services
-      dockerfile: Dockerfile
-    image: category_services
-    ports:
-      - 8081:8081
-    restart: on-failure
-    env_file:
-      - local.env
-
-  tag_services:
-    build:
-      context: tag_services
-      dockerfile: Dockerfile
-    image: tag_services
-    ports:
-      - 8089:8089
-    restart: on-failure
-    env_file:
-      - local.env
-
-  comment_services:
-    build:
-      context: comment_services
-      dockerfile: Dockerfile
-    image: comment_services
-    ports:
-      - 8090:8090
-    restart: on-failure
-    env_file:
-      - local.env
+#  user_services:
+#     build:
+#       context: user_services
+#       dockerfile: Dockerfile
+#     image: user_services
+#     ports:
+#       - 8080:8080
+#     restart: on-failure
+#     env_file:
+#       - local.env
+#
+#  post_services:
+#    build:
+#      context: post_services
+#      dockerfile: Dockerfile
+#    image: post_services
+#    ports:
+#      - 8088:8088
+#    restart: on-failure
+#    env_file:
+#      - local.env
+#
+#  category_services:
+#    build:
+#      context: category_services
+#      dockerfile: Dockerfile
+#    image: category_services
+#    ports:
+#      - 8081:8081
+#    restart: on-failure
+#    env_file:
+#      - local.env
+#
+#  tag_services:
+#    build:
+#      context: tag_services
+#      dockerfile: Dockerfile
+#    image: tag_services
+#    ports:
+#      - 8089:8089
+#    restart: on-failure
+#    env_file:
+#      - local.env
+#
+#  comment_services:
+#    build:
+#      context: comment_services
+#      dockerfile: Dockerfile
+#    image: comment_services
+#    ports:
+#      - 8090:8090
+#    restart: on-failure
+#    env_file:
+#      - local.env
 
 #  networks:
 #    blog-network:

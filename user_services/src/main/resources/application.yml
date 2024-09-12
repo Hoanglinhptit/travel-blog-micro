@@ -2,21 +2,50 @@ spring:
   application:
     name: user_services
   datasource:
-    url: jdbc:h2:mem:kafka
+    url: jdbc:h2:file:./data/kafka
+    driver-class-name: org.h2.Driver
+    username: linh
+    password: 123
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update #chỗ này mà sửa thành drop-create thì rất nguy
+      #ddl-auto: validate
+      #Hibernate sẽ không tạo, sửa đổi hoặc xóa bất kỳ bảng, cột hay ràng buộc nào trong cơ sở dữ liệu
+      #validate thường được sử dụng trong môi trường production
+      #Nếu có sự khác biệt giữa cấu trúc cơ sở dữ liệu và các entity class
+      #lỗi sẽ được hiển thị và yêu cầu sửa đổi cấu trúc cơ sở dữ liệu một cách thủ công
+    properties:
+      hibernate:
+        show_sql: true
+      dialect: org.hibernate.dialect.H2Dialect
+      format_sql: true
   kafka:
     bootstrap-servers: ${HOST_IP_ADDRESS:localhost}:9092,${HOST_IP_ADDRESS:localhost}:9093,${HOST_IP_ADDRESS:localhost}:9094
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-
     consumer:
       group-id: org.travel-blog
       auto-offset-reset: earliest
+    streams:
+      replication-factor: 1
 
   ##0: no wait for kafka response
   ##1: leader write success, not wait for follower
   ##-1: wait for all leader, and replication
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
 server:
   port: 8080
   servlet:
     context-path: /
+
+jwt:
+  expiration: 2592000 #30 days = 30 * 24 * 60 * 60
+  expiration-refresh-token: 5184000 #60 days = 60 * 24 * 60 * 60
+  secretKey: TaqlmGv1iEDMRiFp/pHuID1+T84IABfuA0xXh4GhiUI=

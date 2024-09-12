@@ -24,6 +24,13 @@ public class KafkaProducerConfig {
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+        configProps.put(ProducerConfig.RETRIES_CONFIG, 3); // Tăng số lần thử lại
+        configProps.put(ProducerConfig.LINGER_MS_CONFIG, 10); // Thời gian chờ trước khi gửi batch
+        configProps.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384); // Kích thước batch (bytes)
+        configProps.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 15000); // Thời gian timeout request
+        configProps.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, 5000);
+
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
